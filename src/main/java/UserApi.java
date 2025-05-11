@@ -12,7 +12,7 @@ public class UserApi {
                 .and()
                 .body(user)
                 .when()
-                .post("/api/auth/register");
+                .post(Endpoints.REGISTER_ENDPOINT);
     }
 
     @Step("Send POST request to /api/auth/login")
@@ -22,7 +22,7 @@ public class UserApi {
                 .and()
                 .body(userLogin)
                 .when()
-                .post("/api/auth/login");
+                .post(Endpoints.LOGIN_ENDPOINT);
     }
 
     @Step("Send DELETE request to /api/auth/user")
@@ -31,6 +31,6 @@ public class UserApi {
                 .spec(RestAssuredUtils.getRequestSpecification())
                 .header("Authorization", token)
                 .and()
-                .delete("/api/auth/user");
+                .delete(Endpoints.USER_ENDPOINT);
     }
 }

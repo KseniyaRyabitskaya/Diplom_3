@@ -21,20 +21,11 @@ public class RegistrationPagePOM {
         this.driver = driver;
     }
 
-    public void userRegistration(String email, String name, String password) {
-        waitForLoadPage();
+    @Step("Заполнение полей регистрации")
+    public void fillRegistrationFields(String email, String name, String password) {
         setTextFieldName(name);
         setTextFieldEmail(email);
         setTextFieldPassword(password);
-        clickOnButtonRegistration();
-    }
-
-    public void userIncorrectRegistration(String email, String name, String password) {
-        waitForLoadPage();
-        setTextFieldName(name);
-        setTextFieldEmail(email);
-        setIncorrectPassword(password);
-        clickOnButtonRegistration();
     }
 
     @Step("Ожидание появления поля Имя на странице регистрации")

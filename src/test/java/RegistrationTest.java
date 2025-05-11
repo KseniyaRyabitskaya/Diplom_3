@@ -1,3 +1,4 @@
+import net.datafaker.Faker;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,10 +15,12 @@ public class RegistrationTest {
     private WebDriver driver;
     private final String url = "https://stellarburgers.nomoreparties.site/";
     private User user;
+    Faker faker;
 
     @Before
     public void setUp() {
-        user = new User("alexprahin@mail.ru", "Hfggg65JJhg", "Alex");
+        faker = new Faker();
+        user = new User(faker.internet().emailAddress(), faker.internet().password(6, 20), faker.name().firstName());
         driver = WebDriverBrowser.getWebDriver(TypeBrowsers.CHROME);
         driver.get(url);
     }
@@ -32,11 +35,13 @@ public class RegistrationTest {
         header.clickOnButtonPersonalAccount();
         loginPage.waitForLoadPage();
         loginPage.clickOnLinkRegistration();
-        registrationPagePOM.userRegistration(
+        registrationPagePOM.waitForLoadPage();
+        registrationPagePOM.fillRegistrationFields(
                 user.getEmail(),
                 user.getName(),
                 user.getPassword()
         );
+        registrationPagePOM.clickOnButtonRegistration();
         loginPage.waitForLoadPage();
         assertTrue(loginPage.getVisibilityTitle());
     }
@@ -51,11 +56,13 @@ public class RegistrationTest {
         header.clickOnButtonPersonalAccount();
         loginPage.waitForLoadPage();
         loginPage.clickOnLinkRegistration();
-        registrationPagePOM.userIncorrectRegistration(
+        registrationPagePOM.waitForLoadPage();
+        registrationPagePOM.fillRegistrationFields(
                 user.getEmail(),
                 user.getName(),
-                "lm455");
-
+                faker.internet().password(1, 5)
+        );
+        registrationPagePOM.clickOnButtonRegistration();
         boolean actual = registrationPagePOM.isVisibleError();
         assertThat(true, equalTo(actual));
     }

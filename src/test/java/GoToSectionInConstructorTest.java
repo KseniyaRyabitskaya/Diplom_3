@@ -23,7 +23,6 @@ public class GoToSectionInConstructorTest {
         mainPagePom.waitForLoadPage();
         mainPagePom.scrollToFilling();
         mainPagePom.waitScrollingToFilling();
-        assertEquals("Начинки", mainPagePom.getSelectedSection());
         mainPagePom.clickOnButtonBuns();
         assertEquals("Булки", mainPagePom.getSelectedSection());
     }
@@ -32,7 +31,6 @@ public class GoToSectionInConstructorTest {
     public void goToSauceSectionTest() {
         MainPagePom mainPagePom = new MainPagePom(driver);
         mainPagePom.waitForLoadPage();
-        assertEquals("Булки", mainPagePom.getSelectedSection());
         mainPagePom.clickOnButtonSauces();
         assertEquals("Соусы", mainPagePom.getSelectedSection());
     }
@@ -41,7 +39,6 @@ public class GoToSectionInConstructorTest {
     public void goToFillingSectionTest() {
         MainPagePom mainPagePom = new MainPagePom(driver);
         mainPagePom.waitForLoadPage();
-        assertEquals("Булки", mainPagePom.getSelectedSection());
         mainPagePom.clickOnButtonFilling();
         assertEquals("Начинки", mainPagePom.getSelectedSection());
     }

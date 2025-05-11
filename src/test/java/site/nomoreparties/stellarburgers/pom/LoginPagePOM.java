@@ -21,11 +21,10 @@ public class LoginPagePOM {
         this.driver = driver;
     }
 
-    public void userLogin(String email, String password) {
-        waitForLoadPage();
+    @Step("Заполнение полей входа")
+    public void fillLogInFields(String email, String password) {
         setTextFieldEmail(email);
         setTextFieldPassword(password);
-        clickOnLogInButton();
     }
 
     @Step("Ожидание загрузки страницы входа")

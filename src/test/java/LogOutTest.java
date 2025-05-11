@@ -1,3 +1,4 @@
+import net.datafaker.Faker;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +19,8 @@ public class LogOutTest {
 
     @Before
     public void setUp() {
-        user = new User("alexprahin@mail.ru", "Hfggg65JJhg", "Alex");
+        Faker faker = new Faker();
+        user = new User(faker.internet().emailAddress(), faker.internet().password(6, 20), faker.name().firstName());
         UserApi.createUser(user);
         driver = WebDriverBrowser.getWebDriver(TypeBrowsers.CHROME);
         driver.get(url);
@@ -27,7 +29,9 @@ public class LogOutTest {
         HeaderPOM headerPOM = new HeaderPOM(driver);
         mainPagePom.waitForLoadPage();
         mainPagePom.clickOnButtonEnterToAccount();
-        loginPagePOM.userLogin(user.getEmail(), user.getPassword());
+        loginPagePOM.waitForLoadPage();
+        loginPagePOM.fillLogInFields(user.getEmail(), user.getPassword());
+        loginPagePOM.clickOnLogInButton();
         headerPOM.waitForLoadHeader();
         headerPOM.clickOnButtonPersonalAccount();
     }
