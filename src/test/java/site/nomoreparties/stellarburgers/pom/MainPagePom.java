@@ -2,7 +2,6 @@ package site.nomoreparties.stellarburgers.pom;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -13,12 +12,14 @@ public class MainPagePom {
 
     private final By titleCreateBurger = By.xpath(".//h1[text()='Соберите бургер']");
     private final By buttonEnterToAccount = By.xpath(".//button[text()='Войти в аккаунт']");
-    private final By buttonBuns = By.xpath(".//span[text()='Булки']");
-    private final By buttonSauces = By.xpath(".//span[text()='Соусы']");
-    private final By buttonFilling = By.xpath(".//span[text()='Начинки']");
+    private final By noSelectedButtonBuns = By.xpath(".//div[not(contains(@class, 'tab_tab_type_current__2BEPc'))]//span[text()='Булки']");
+    private final By noSelectedButtonSauces = By.xpath(".//div[not(contains(@class, 'tab_tab_type_current__2BEPc'))]//span[text()='Соусы']");
+    private final By noSelectedButtonFilling = By.xpath(".//div[not(contains(@class, 'tab_tab_type_current__2BEPc'))]//span[text()='Начинки']");
+    private final By selectedButtonBuns = By.xpath(".//div[contains(@class, 'tab_tab_type_current__2BEPc')]//span[text()='Булки']");
+    private final By selectedButtonSauces = By.xpath(".//div[contains(@class, 'tab_tab_type_current__2BEPc')]//span[text()='Соусы']");
+    private final By selectedButtonFilling = By.xpath(".//div[contains(@class, 'tab_tab_type_current__2BEPc')]//span[text()='Начинки']");
+
     private final By selectedSection = By.xpath("//div[contains(@class, 'tab_tab_type_current__2BEPc')]//span");
-    private final By selectedButtonFilling = By.xpath("//div[contains(@class, 'tab_tab_type_current__2BEPc')]//span[text()='Начинки']");
-    private final By sectionFilling = By.xpath(".//h2[text() = 'Начинки']");
 
     public MainPagePom(WebDriver driver) {
         this.driver = driver;
@@ -46,17 +47,17 @@ public class MainPagePom {
 
     @Step("Клик по кнопке Булки на главной странице")
     public void clickOnButtonBuns() {
-        driver.findElement(buttonBuns).click();
+        driver.findElement(noSelectedButtonBuns).click();
     }
 
     @Step("Клик по кнопке Соусы на главной странице")
     public void clickOnButtonSauces() {
-        driver.findElement(buttonSauces).click();
+        driver.findElement(noSelectedButtonSauces).click();
     }
 
     @Step("Клик по кнопке Начинки на главной странице")
     public void clickOnButtonFilling() {
-        driver.findElement(buttonFilling).click();
+        driver.findElement(noSelectedButtonFilling).click();
     }
 
     @Step("Клик по кнопке Войти в аккаунт на главной странице")
@@ -64,17 +65,62 @@ public class MainPagePom {
         driver.findElement(buttonEnterToAccount).click();
     }
 
-    @Step("Скролл до надписи Начинки на главной странице")
-    public void scrollToFilling() {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(sectionFilling));
+    @Step("Ожидание видимости кнопки selectedButtonBuns")
+    public void isVisibleSelectedButtonBuns() {
+        new WebDriverWait(driver, Duration.ofSeconds(5L)).until(
+                driver -> (
+                        driver.findElement(selectedButtonBuns) != null
+                                && driver.findElement(selectedButtonBuns).isDisplayed()
+                )
+        );
     }
 
-    @Step("Ожидание завершения скролла до надписи Начинки на главной странице")
-    public void waitScrollingToFilling() {
+    @Step("Ожидание видимости кнопки selectedButtonSauces")
+    public void isVisibleSelectedButtonSauces() {
+        new WebDriverWait(driver, Duration.ofSeconds(5L)).until(
+                driver -> (
+                        driver.findElement(selectedButtonSauces) != null
+                                && driver.findElement(selectedButtonSauces).isDisplayed()
+                )
+        );
+    }
+
+    @Step("Ожидание видимости кнопки selectedButtonFilling")
+    public void isVisibleSelectedButtonFilling() {
         new WebDriverWait(driver, Duration.ofSeconds(5L)).until(
                 driver -> (
                         driver.findElement(selectedButtonFilling) != null
                                 && driver.findElement(selectedButtonFilling).isDisplayed()
+                )
+        );
+    }
+
+    @Step("Ожидание видимости кнопки noSelectedButtonBuns")
+    public void isVisibleNoSelectedButtonBuns() {
+        new WebDriverWait(driver, Duration.ofSeconds(5L)).until(
+                driver -> (
+                        driver.findElement(noSelectedButtonBuns) != null
+                                && driver.findElement(noSelectedButtonBuns).isDisplayed()
+                )
+        );
+    }
+
+    @Step("Ожидание видимости кнопки noSelectedButtonSauces")
+    public void isVisibleNoSelectedButtonSauces() {
+        new WebDriverWait(driver, Duration.ofSeconds(5L)).until(
+                driver -> (
+                        driver.findElement(noSelectedButtonSauces) != null
+                                && driver.findElement(noSelectedButtonSauces).isDisplayed()
+                )
+        );
+    }
+
+    @Step("Ожидание видимости кнопки noSelectedButtonFilling")
+    public void isVisibleNoSelectedButtonFilling() {
+        new WebDriverWait(driver, Duration.ofSeconds(5L)).until(
+                driver -> (
+                        driver.findElement(noSelectedButtonFilling) != null
+                                && driver.findElement(noSelectedButtonFilling).isDisplayed()
                 )
         );
     }

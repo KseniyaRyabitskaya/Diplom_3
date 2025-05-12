@@ -21,9 +21,14 @@ public class GoToSectionInConstructorTest {
     public void goToBunSectionTest() {
         MainPagePom mainPagePom = new MainPagePom(driver);
         mainPagePom.waitForLoadPage();
-        mainPagePom.scrollToFilling();
-        mainPagePom.waitScrollingToFilling();
+        mainPagePom.clickOnButtonSauces();
+        mainPagePom.isVisibleNoSelectedButtonBuns();
+        mainPagePom.isVisibleNoSelectedButtonFilling();
+        mainPagePom.isVisibleSelectedButtonSauces();
         mainPagePom.clickOnButtonBuns();
+        mainPagePom.isVisibleNoSelectedButtonSauces();
+        mainPagePom.isVisibleNoSelectedButtonFilling();
+        mainPagePom.isVisibleSelectedButtonBuns();
         assertEquals("Булки", mainPagePom.getSelectedSection());
     }
 
@@ -32,6 +37,9 @@ public class GoToSectionInConstructorTest {
         MainPagePom mainPagePom = new MainPagePom(driver);
         mainPagePom.waitForLoadPage();
         mainPagePom.clickOnButtonSauces();
+        mainPagePom.isVisibleNoSelectedButtonBuns();
+        mainPagePom.isVisibleNoSelectedButtonFilling();
+        mainPagePom.isVisibleSelectedButtonSauces();
         assertEquals("Соусы", mainPagePom.getSelectedSection());
     }
 
@@ -40,6 +48,9 @@ public class GoToSectionInConstructorTest {
         MainPagePom mainPagePom = new MainPagePom(driver);
         mainPagePom.waitForLoadPage();
         mainPagePom.clickOnButtonFilling();
+        mainPagePom.isVisibleNoSelectedButtonBuns();
+        mainPagePom.isVisibleNoSelectedButtonSauces();
+        mainPagePom.isVisibleSelectedButtonFilling();
         assertEquals("Начинки", mainPagePom.getSelectedSection());
     }
 
